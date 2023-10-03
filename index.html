@@ -81,11 +81,11 @@
             const file = document.querySelector('#input_image').files[0];
 
             if (!file) $('#filters').val('');
-
             var reader = new FileReader();
-
+            
             reader.onloadend = function () {
                 preview.src = reader.result;
+                
             }
 
             if (file) {
@@ -113,14 +113,26 @@
             }
 
             const preview = document.querySelector('#output_image');
-            var reader = new FileReader();
+            const image = document.querySelector('#selected_image');
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
 
-            reader.onloadend = function () {
-                preview.src = reader.result;
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image, 0, 0);
+
+            var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            var data = imageData.data; // Array de dados da imagem
+
+            // Filtro de negativo
+            for (var i = 0; i < data.length; i++) {
+                data[i] = 255 - data[i];
             }
+
+            const output_image = new Blob(data, {type: "image/bmp"});
     
-            if (file) {
-                reader.readAsDataURL(file);
+            if (output_image) {
+                preview.src = URL.createObjectURL(output_image);
                 $('#output_tools').show();
             } else {
                 preview.src = "";
