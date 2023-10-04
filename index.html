@@ -21,10 +21,11 @@
                 <!-- TODO: ROTAÇÃO EM 180º -->
                 <select name="filters" id="filters" class="form-select">
                     <option value="">Escolha um filtro</option>
-                    <option value="">Negativo</option>
-                    <option value="">Logaritmo</option>
-                    <option value="">Logaritmo Inverso</option>
-                    <option value="">Potência</option> <!-- COM GAMA -->
+                    <option value="clockwise">90º sentido horário</option>
+                    <option value="negative">Negativo</option>
+                    <option value="log">Logaritmo</option>
+                    <option value="inverse_log">Logaritmo Inverso</option>
+                    <option value="power">Potência</option> <!-- COM GAMA -->
                     <option value="">Raiz</option> <!-- COM GAMA -->
                     <option value="">Ampliação de imagem com interpolação por replicação de pixel</option> <!-- Ampliar de 256x256 para 512x512 e 1024x1024 -->
                     <option value="">Ampliação de imagem por interpolação bilinear</option> <!-- Ampliar de 256x256 para 512x512 e 1024x1024 -->
@@ -122,17 +123,39 @@
             ctx.drawImage(image, 0, 0);
 
             var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            // var data = negative(imageData.data); // Array de dados da imagem
-            console.log(imageData.data);
-            var data = inverse_log(imageData.data); // Array de dados da imagem
+            let data;
 
-            console.log(data);
+            switch ($('#filters').val()) {
+                case "negative":
+                    data = negative(imageData.data);
+                    break;
+
+                case "log":
+                    data = log(imageData.data);
+                    break;
+
+                case "inverse_log":
+                    data = inverse_log(imageData.data);
+                    break;
+
+                case "power":
+                    data = power(imageData.data, .1);
+                    break;
+
+                
+
+                case "clockwise":
+                    data = clockwise(imageData.data, image.width, image.height);
+                    break;
+
+                default:
+                    break;
+            }
             
-            const imgData = new ImageData(data, image.width, image.height)
-            //const output_image = new Blob(data, {type: "image/bmp"});
+            const imgData = new ImageData(data, image.width, image.height);
             ctx.putImageData(imgData, 0, 0);
 
-            preview.src = canvas.toDataURL('image/bmp')
+            preview.src = canvas.toDataURL('image/bmp');
             $('#output_tools').show();
         }
 
@@ -150,7 +173,7 @@
             return data;
         }
 
-        function log(data) {
+        function log(data) { // Revisar
             const intensity = .1;
 
             for (let i = 0; i < data.length; i += 4) {
@@ -166,20 +189,60 @@
             return data;
         }
 
-        function inverse_log(data) {
-            const intensity = .1;
-
+        function inverse_log(data) { // Revisar
+            const intensity = 1;
             for (let i = 0; i < data.length; i += 4) {
+                // Separa os componentes R, G, B e A do pixel
                 const r = data[i];
                 const g = data[i + 1];
                 const b = data[i + 2];
+                const a = data[i + 3];
 
-                data[i] = Math.exp(intensity * r) - 1;
-                data[i + 1] = Math.exp(intensity * g) - 1;
-                data[i + 2] = Math.exp(intensity * b) - 1;
+                // Aplica o logaritmo inverso ao valor de cada canal de cor (R, G, B)
+                data[i] = Math.exp((r / 255) * intensity) * 255;
+                data[i + 1] = Math.exp((g / 255) * intensity) * 255;
+                data[i + 2] = Math.exp((b / 255) * intensity) * 255;
             }
 
             return data;
+        }
+
+        function power(data, gamma) {
+            for (let i = 0; i < data.length; i += 4) {
+                // Separa os componentes R, G, B e A do pixel
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+                const a = data[i + 3];
+
+                // Aplica o filtro de potência a cada canal de cor (R, G, B)
+                data[i] = Math.pow((r / 255), gamma) * 255;
+                data[i + 1] = Math.pow((g / 255), gamma) * 255;
+                data[i + 2] = Math.pow((b / 255), gamma) * 255;
+            }
+
+            return data;
+        }
+
+        const reshape = (arr, rows, cols) => {
+            const result = new Array(rows);
+            for (let row = 0; row < rows; row++) {
+                result[row] = new Array(cols);
+            }
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    result[row][col] = arr[row * cols + col];
+                }
+            }
+            return result;
+        };
+
+        function clockwise(data, width, height) {
+            const newData = reshape(data, width, height);
+            
+            
+
+            return rotatedData;
         }
     </script>
 </body>
