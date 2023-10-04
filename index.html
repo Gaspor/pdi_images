@@ -122,26 +122,65 @@
             ctx.drawImage(image, 0, 0);
 
             var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            var data = imageData.data; // Array de dados da imagem
+            // var data = negative(imageData.data); // Array de dados da imagem
+            console.log(imageData.data);
+            var data = inverse_log(imageData.data); // Array de dados da imagem
 
-            // Filtro de negativo
-            for (var i = 0; i < data.length; i++) {
-                data[i] = 255 - data[i];
-            }
+            console.log(data);
+            
+            const imgData = new ImageData(data, image.width, image.height)
+            //const output_image = new Blob(data, {type: "image/bmp"});
+            ctx.putImageData(imgData, 0, 0);
 
-            const output_image = new Blob(data, {type: "image/bmp"});
-    
-            if (output_image) {
-                preview.src = URL.createObjectURL(output_image);
-                $('#output_tools').show();
-            } else {
-                preview.src = "";
-            }
+            preview.src = canvas.toDataURL('image/bmp')
+            $('#output_tools').show();
         }
 
         $('#filters').on('change', () => {
             applyFilter();
         });
+
+        function negative(data) {
+            for (var i = 0; i < data.length; i += 4) {
+                data[i] = 255 - data[i];
+                data[i + 1] = 255 - data[i + 1];
+                data[i + 2] = 255 - data[i + 2];
+            }
+
+            return data;
+        }
+
+        function log(data) {
+            const intensity = .1;
+
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+
+                data[i] = Math.log(1 + r) * intensity;
+                data[i + 1] = Math.log(1 + g) * intensity;
+                data[i + 2] = Math.log(1 + b) * intensity;
+            }
+
+            return data;
+        }
+
+        function inverse_log(data) {
+            const intensity = .1;
+
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+
+                data[i] = Math.exp(intensity * r) - 1;
+                data[i + 1] = Math.exp(intensity * g) - 1;
+                data[i + 2] = Math.exp(intensity * b) - 1;
+            }
+
+            return data;
+        }
     </script>
 </body>
 </html>
