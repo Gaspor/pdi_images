@@ -1,249 +1,93 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trabalho prático de PDI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <header class="text-center">Trabalho Prático de PDI</header>
     <main>
-        <!-- Input Image -->
-        <div class="row col-8 text-center">
-            <section class="col-5 bg-primary rounded m-2 p-2">
-                <h1>Insira uma imagem</h1>
-                <!-- TODO: PONTA DE PROVA -->
-                <!-- TODO: HISTOGRAMA DA IMAGEM -->
-                <!-- TODO: EQUALIZAÇÃO DA IMAGEM -->
-                <!-- TODO: ROTAÇÃO EM 90º (HORÁRIO E ANTI-HORÁRIO) -->
-                <!-- TODO: ROTAÇÃO EM 180º -->
-                <select name="filters" id="filters" class="form-select">
-                    <option value="">Escolha um filtro</option>
-                    <option value="clockwise">90º sentido horário</option>
-                    <option value="negative">Negativo</option>
-                    <option value="log">Logaritmo</option>
-                    <option value="inverse_log">Logaritmo Inverso</option>
-                    <option value="power">Potência</option> <!-- COM GAMA -->
-                    <option value="">Raiz</option> <!-- COM GAMA -->
-                    <option value="">Ampliação de imagem com interpolação por replicação de pixel</option> <!-- Ampliar de 256x256 para 512x512 e 1024x1024 -->
-                    <option value="">Ampliação de imagem por interpolação bilinear</option> <!-- Ampliar de 256x256 para 512x512 e 1024x1024 -->
-                    <option value="">Espelhamento Horizontal</option>
-                    <option value="">Espelhamento Vertical</option>
-                    <option value="">Expansão</option>
-                    <option value="">Compressão</option>
-                    <option value="">Média</option>
-                    <option value="">Mediana</option>
-                    <option value="">Moda</option>
-                    <option value="">MIN</option>
-                    <option value="">MAX</option>
-                    <option value="">Laplaciano</option>
-                    <option value="">High Boost</option>
-                    <option value="">Prewitt</option>
-                    <option value="">Sobel</option>
-                </select>
-                
-                <input class="border rounded mt-2" type="file" name="input_image" id="input_image">
-                
-                <div id="output_div" class="p-2">
-                    <img src="" alt="" id="selected_image">
-                </div>
+      <!-- Input Image -->
+      <div class="row col-8 text-center">
+        <section class="col-5 bg-primary rounded m-2 p-2">
+          <h1>Insira uma imagem</h1>
+          <!-- TODO: PONTA DE PROVA -->
+          <!-- TODO: HISTOGRAMA DA IMAGEM -->
+          <!-- TODO: EQUALIZAÇÃO DA IMAGEM -->
+          <!-- TODO: ROTAÇÃO EM 90º (HORÁRIO E ANTI-HORÁRIO) -->
+          <!-- TODO: ROTAÇÃO EM 180º -->
+          <select name="filters" id="filters" class="form-select">
+            <option value="">Escolha um filtro</option>
+            <option value="clockwise">90º sentido horário</option>
+            <option value="negative">Negativo</option>
+            <option value="log">Logaritmo</option>
+            <option value="inverse_log">Logaritmo Inverso</option>
+            <option value="power">Potência</option>
+            <!-- COM GAMA -->
+            <option value="">Raiz</option>
+            <!-- COM GAMA -->
+            <option value="">
+              Ampliação de imagem com interpolação por replicação de pixel
+            </option>
+            <!-- Ampliar de 256x256 para 512x512 e 1024x1024 -->
+            <option value="">
+              Ampliação de imagem por interpolação bilinear
+            </option>
+            <!-- Ampliar de 256x256 para 512x512 e 1024x1024 -->
+            <option value="">Espelhamento Horizontal</option>
+            <option value="">Espelhamento Vertical</option>
+            <option value="">Expansão</option>
+            <option value="">Compressão</option>
+            <option value="">Média</option>
+            <option value="">Mediana</option>
+            <option value="">Moda</option>
+            <option value="">MIN</option>
+            <option value="">MAX</option>
+            <option value="">Laplaciano</option>
+            <option value="">High Boost</option>
+            <option value="">Prewitt</option>
+            <option value="">Sobel</option>
+          </select>
 
-                <div id="input_tools" style="display: none;">
-                    
-                </div>
-            </section>
-            
-            <!-- Output Image -->
-            <section class="col-5 bg-danger rounded m-2 p-2">
-                <h1 class="">Resultado da imagem</h1>
-                <div id="output_div" class="p-2">
-                    <div id="preview_message"></div>
-                    <img src="" alt="" id="output_image">
-                </div>
+          <input
+            class="border rounded mt-2"
+            type="file"
+            name="input_image"
+            id="input_image"
+          />
 
-                <div id="output_tools" style="display: none;">
-                    
-                </div>
-            </section>
-        </div>
+          <div id="output_div" class="p-2">
+            <img src="" alt="" id="selected_image" />
+          </div>
+
+          <div id="input_tools" style="display: none"></div>
+        </section>
+
+        <!-- Output Image -->
+        <section class="col-5 bg-danger rounded m-2 p-2">
+          <h1 class="">Resultado da imagem</h1>
+          <div id="output_div" class="p-2">
+            <div id="preview_message"></div>
+            <img src="" alt="" id="output_image" />
+          </div>
+
+          <div id="output_tools" style="display: none"></div>
+        </section>
+      </div>
     </main>
 
-    <script>
-        $('#filters').attr('disabled', 'disabled')
-        $('#input_image').on('change', () => {
-            $('#filters').attr('disabled', 'disabled')
-            $('#output_image').attr('src', '');
-            $('#output_tools').hide();
-            $('#input_tools').hide();
-
-            const preview = document.querySelector('#selected_image');
-            const file = document.querySelector('#input_image').files[0];
-
-            if (!file) $('#filters').val('');
-            var reader = new FileReader();
-            
-            reader.onloadend = function () {
-                preview.src = reader.result;
-                
-            }
-
-            if (file) {
-                $('#preview_message').html(``);
-                $('#input_tools').show();
-                $('#filters').removeAttr('disabled')
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = "";
-            }
-        });
-
-        // Função para aplicar os filtros na imagem e exibir para o usuário
-        function applyFilter() {
-            const file = document.querySelector('#input_image').files[0];
-
-            // Verifica se tem uma imagem selecionada
-            if (!file) {
-                $('#filters').val('');
-                $('#preview_message').html(`
-                    <h1>É necessário escolher uma imagem antes da aplica um filtro!</h1>
-                `);
-
-                return;
-            }
-
-            const preview = document.querySelector('#output_image');
-            const image = document.querySelector('#selected_image');
-            var canvas = document.createElement("canvas");
-            var ctx = canvas.getContext("2d");
-
-            canvas.width = image.width;
-            canvas.height = image.height;
-            ctx.drawImage(image, 0, 0);
-
-            var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            let data;
-
-            switch ($('#filters').val()) {
-                case "negative":
-                    data = negative(imageData.data);
-                    break;
-
-                case "log":
-                    data = log(imageData.data);
-                    break;
-
-                case "inverse_log":
-                    data = inverse_log(imageData.data);
-                    break;
-
-                case "power":
-                    data = power(imageData.data, .1);
-                    break;
-
-                
-
-                case "clockwise":
-                    data = clockwise(imageData.data, image.width, image.height);
-                    break;
-
-                default:
-                    break;
-            }
-            
-            const imgData = new ImageData(data, image.width, image.height);
-            ctx.putImageData(imgData, 0, 0);
-
-            preview.src = canvas.toDataURL('image/bmp');
-            $('#output_tools').show();
-        }
-
-        $('#filters').on('change', () => {
-            applyFilter();
-        });
-
-        function negative(data) {
-            for (var i = 0; i < data.length; i += 4) {
-                data[i] = 255 - data[i];
-                data[i + 1] = 255 - data[i + 1];
-                data[i + 2] = 255 - data[i + 2];
-            }
-
-            return data;
-        }
-
-        function log(data) { // Revisar
-            const intensity = .1;
-
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-
-                data[i] = Math.log(1 + r) * intensity;
-                data[i + 1] = Math.log(1 + g) * intensity;
-                data[i + 2] = Math.log(1 + b) * intensity;
-            }
-
-            return data;
-        }
-
-        function inverse_log(data) { // Revisar
-            const intensity = 1;
-            for (let i = 0; i < data.length; i += 4) {
-                // Separa os componentes R, G, B e A do pixel
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-                const a = data[i + 3];
-
-                // Aplica o logaritmo inverso ao valor de cada canal de cor (R, G, B)
-                data[i] = Math.exp((r / 255) * intensity) * 255;
-                data[i + 1] = Math.exp((g / 255) * intensity) * 255;
-                data[i + 2] = Math.exp((b / 255) * intensity) * 255;
-            }
-
-            return data;
-        }
-
-        function power(data, gamma) {
-            for (let i = 0; i < data.length; i += 4) {
-                // Separa os componentes R, G, B e A do pixel
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-                const a = data[i + 3];
-
-                // Aplica o filtro de potência a cada canal de cor (R, G, B)
-                data[i] = Math.pow((r / 255), gamma) * 255;
-                data[i + 1] = Math.pow((g / 255), gamma) * 255;
-                data[i + 2] = Math.pow((b / 255), gamma) * 255;
-            }
-
-            return data;
-        }
-
-        const reshape = (arr, rows, cols) => {
-            const result = new Array(rows);
-            for (let row = 0; row < rows; row++) {
-                result[row] = new Array(cols);
-            }
-            for (let row = 0; row < rows; row++) {
-                for (let col = 0; col < cols; col++) {
-                    result[row][col] = arr[row * cols + col];
-                }
-            }
-            return result;
-        };
-
-        function clockwise(data, width, height) {
-            const newData = reshape(data, width, height);
-            
-            
-
-            return rotatedData;
-        }
-    </script>
-</body>
+    <script src="index.js"></script>
+  </body>
 </html>
