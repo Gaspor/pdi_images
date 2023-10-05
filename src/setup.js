@@ -115,7 +115,7 @@ function applyFilter() {
       );
       break;
 
-      case "interpolation_pixel":
+    case "interpolation_pixel":
       $("#scale").show();
       scaleFactor = $("input[name='scale_factor']:checked").val();
       console.log(scaleFactor);
@@ -133,6 +133,7 @@ function applyFilter() {
       const a = 1;
       const b = 1;
       data = expansion(imageData.data, a, b);
+      break;
 
     default:
       break;
