@@ -99,7 +99,23 @@ function applyFilter() {
       data = apply180degrees(imageData.data);
       break;
 
-    case "interpolation_pixel":
+    case "horizontal_flip":
+      data = espelharImagemHorizontal(
+        imageData.data,
+        image.width,
+        image.height
+      );
+      break;
+
+    case "vertical_flip":
+      data = espelharImagemVertical(
+        imageData.data,
+        image.width,
+        image.height
+      );
+      break;
+
+      case "interpolation_pixel":
       $("#scale").show();
       scaleFactor = $("input[name='scale_factor']:checked").val();
       console.log(scaleFactor);
@@ -117,7 +133,6 @@ function applyFilter() {
       const a = 1;
       const b = 1;
       data = expansion(imageData.data, a, b);
-      break;
 
     default:
       break;
