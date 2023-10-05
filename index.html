@@ -19,7 +19,6 @@
         <div class="row col-8 text-center">
             <section class="col-5 bg-primary rounded m-2 p-2">
                 <h1>Insira uma imagem</h1>
-                <!-- TODO: PONTA DE PROVA -->
                 <!-- TODO: HISTOGRAMA DA IMAGEM -->
                 <!-- TODO: EQUALIZAÇÃO DA IMAGEM -->
                 <select name="filters" id="filters" class="form-select">
@@ -31,20 +30,17 @@
                     <option value="log">Logaritmo</option>
                     <option value="inverse_log">Logaritmo Inverso</option>
                     <option value="power">Potência</option>
-                    <!-- COM GAMA -->
                     <option value="square_root">Raiz</option>
-                    <!-- COM GAMA -->
-                    <option value="interpolation">
+                    <option value="interpolation_pixel">
                         Ampliação de imagem com interpolação por replicação de pixel
                     </option>
-                    <!-- Ampliar de 256x256 para 512x512 e 1024x1024 -->
-                    <option value="">
+                    <option value="interpolation_bilinear">
                         Ampliação de imagem por interpolação bilinear
                     </option>
                     <!-- Ampliar de 256x256 para 512x512 e 1024x1024 -->
                     <option value="">Espelhamento Horizontal</option>
                     <option value="">Espelhamento Vertical</option>
-                    <option value="">Expansão</option>
+                    <option value="expansion">Expansão</option>
                     <option value="">Compressão</option>
                     <option value="">Média</option>
                     <option value="">Mediana</option>
@@ -69,6 +65,18 @@
                         <input class="form-range" type="range" name="gamma" min="0" max="100" step=".5" value="1" id="range_gamma">
                         <p id="gamma_value">1%</p>
                     </div>
+
+                    <div id="scale" style="display: none;">
+                        <legend>Escala: </legend>
+                        <div>
+                            <input type="radio" id="" name="scale_factor" value="1" checked/>
+                            <label for="">x1</label>
+                            <input type="radio" id="" name="scale_factor" value="2" />
+                            <label for="">x2 (512)</label>
+                            <input type="radio" id="" name="scale_factor" value="4" />
+                            <label for="">x4 (1024)</label>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -88,6 +96,7 @@
 
     <script src="src/setup.js"></script>
     <script src="src/utils/getCoordinate.js"></script>
+    <script src="src/utils/clamp.js"></script>
     <script src="src/filters/clockwise.js"></script>
     <script src="src/filters/counterclockwise.js"></script>
     <script src="src/filters/inverse_log.js"></script>
@@ -97,6 +106,8 @@
     <script src="src/filters/rotate180.js"></script>
     <script src="src/filters/square_root.js"></script>
     <script src="src/filters/interpolation_filter.js"></script>
+    <script src="src/filters/interpolation_bilinear.js"></script>
+    <script src="src/filters/expansion.js"></script>
 </body>
 
 </html>

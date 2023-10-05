@@ -36,6 +36,7 @@ function applyFilter() {
   if ($("#filters").val() == "") return;
 
   $("#gamma").hide();
+  $("#scale").hide();
 
   const file = document.querySelector("#input_image").files[0];
 
@@ -57,6 +58,8 @@ function applyFilter() {
   canvas.width = image.width;
   canvas.height = image.height;
   ctx.drawImage(image, 0, 0);
+
+  scaleFactor = 1;
 
   var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let data;
@@ -96,33 +99,46 @@ function applyFilter() {
       data = apply180degrees(imageData.data);
       break;
 
-    case "interpolation":
-      canvas.width = image.width * 2;
-      canvas.height = image.height * 2;
+    case "interpolation_pixel":
+      $("#scale").show();
+      scaleFactor = $("input[name='scale_factor']:checked").val();
+      console.log(scaleFactor);
+      data = nearestNeighborResample(imageData.data, scaleFactor, imageData.width, imageData.height);
+      break;
 
-      ctx.drawImage(image, 0, 0);
-      imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    case "interpolation_bilinear":
+      $("#scale").show();
+      scaleFactor = $("input[name='scale_factor']:checked").val();
+      console.log(scaleFactor);
+      data = interpolation_bilinear(imageData.data, scaleFactor, imageData.width, imageData.height);
+      break;
 
-      image.width = image.width * 2;
-      image.height = image.height ;
-
-      data = nearestNeighborResample(imageData.data, image.width, image.height, imageData.width, imageData.height);
+    case "expansion":
+      const a = 1;
+      const b = 1;
+      data = expansion(imageData.data, a, b);
       break;
 
     default:
       break;
   }
+  
+  canvas.width = image.width * scaleFactor;
+  canvas.height = image.height * scaleFactor;
 
-  console.log(image.width, image.height);
-  console.log(data);
-
-  const imgData = new ImageData(data, image.width, image.height);
+  const imgData = new ImageData(data, image.width * scaleFactor, image.height * scaleFactor);
   ctx.putImageData(imgData, 0, 0);
 
+  preview.width = image.width * scaleFactor;
+  preview.height = image.height * scaleFactor;
   preview.src = canvas.toDataURL("image/bmp");
   $("#output_tools").show();
 }
 
 $("#filters").on("change", () => {
+  applyFilter();
+});
+
+$("input[name='scale_factor']").on('change', () => {
   applyFilter();
 });

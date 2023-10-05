@@ -1,19 +1,24 @@
-function nearestNeighborResample(image, newWidth, newHeight, width, height) {
-  // Cria uma matriz de pixels para a imagem ampliada
-  const newImage = new Uint8ClampedArray(newWidth * newHeight * 4);
+function nearestNeighborResample(data, scaleFactor, width, height) {
+  const originalWidth = width;
+  const originalHeight = height;
+  const newWidth = originalWidth * scaleFactor;
+  const newHeight = originalHeight * scaleFactor;
 
-  // Percorre cada pixel da imagem original
-  for (let x = 0; x < width; x += 4) {
-    // Obtém o pixel original
-    const originalPixel = image[x];
+  const newData = new Uint8ClampedArray(newWidth * newHeight * 4);
 
-    // Copia o pixel original para a imagem ampliada
-    newImage[newWidth + x]     = originalPixel[x];
-    newImage[newWidth + x + 1] = originalPixel[x];
-    newImage[newWidth + x + 2] = originalPixel[x];
-    newImage[newWidth + x + 3] = originalPixel[x];
+  for (let y = 0; y < newHeight; y++) {
+    for (let x = 0; x < newWidth; x++) {
+      const originalX = Math.floor(x / scaleFactor);
+      const originalY = Math.floor(y / scaleFactor);
+
+      const newIndex = (y * newWidth + x) * 4;
+      const originalIndex = (originalY * originalWidth + originalX) * 4;
+
+      newData[newIndex] = data[originalIndex];
+      newData[newIndex + 1] = data[originalIndex + 1];
+      newData[newIndex + 2] = data[originalIndex + 2];
+      newData[newIndex + 3] = data[originalIndex + 3];
+    }
   }
-
-  // Retorna a imagem ampliada
-  return newImage;
+  return newData;
 }
