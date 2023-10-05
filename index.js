@@ -169,4 +169,5 @@ function clockwise(data, width, height) {
   return rotatedData;
 }
 
-//Negativo e Potência feitos
+// imagem com interpolação por replicação de pixel
+
