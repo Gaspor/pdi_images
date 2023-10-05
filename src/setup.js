@@ -104,10 +104,31 @@ function applyFilter() {
       imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
       image.width = image.width * 2;
-      image.height = image.height ;
+      image.height = image.height;
 
-      data = nearestNeighborResample(imageData.data, image.width, image.height, imageData.width, imageData.height);
+      data = nearestNeighborResample(
+        imageData.data,
+        image.width,
+        image.height,
+        imageData.width,
+        imageData.height
+      );
       break;
+
+    case "horizontal_flip":
+      data = espelharImagemHorizontal(
+        imageData.data,
+        image.width,
+        image.height
+      );
+      break;
+
+    case "vertical_flip":
+      data = espelharImagemVertical(
+        imageData.data,
+        image.width,
+        image.height
+      );
 
     default:
       break;
