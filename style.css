@@ -1,0 +1,86 @@
+/* Reset de estilos para zerar as configurações padrão do navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo global para o corpo da página */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  
+  /* Estilo do cabeçalho */
+  header {
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 24px;
+    padding: 20px;
+  }
+  
+  /* Estilo do contêiner principal */
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Estilo das seções de entrada e saída */
+  section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  /* Estilo do seletor de filtro */
+  #filters {
+    width: 100%;
+    margin: 10px 0;
+    padding: 5px;
+  }
+  
+  /* Estilo para os botões de escala */
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  /* Estilo para a imagem de saída */
+  #output_image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+  
+  /* Estilo para o rodapé da imagem */
+  #img_coordinate,
+  #img_coordinate_result {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  /* Estilos para os controles de gamma */
+  #gamma, #scale, #AandB {
+    display: none;
+  }
+  
+  /* Estilo para a barra de gama */
+  #range_gamma {
+    width: 100%;
+  }
+  
+  /* Estilo para a barra de gama */
+  #gamma_value {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+/* Estilo para a imagem de entrada */
+#selected_image {
+    width: 100%; 
+    height: auto; 
+}

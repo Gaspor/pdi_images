@@ -10,6 +10,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -42,21 +43,21 @@
                     <option value="vertical_flip">Espelhamento Vertical</option>
                     <option value="expansion">Expansão</option>
                     <option value="compression">Compressão</option>
-                    <option value="">Média</option>
-                    <option value="">Mediana</option>
-                    <option value="">Moda</option>
-                    <option value="">MIN</option>
-                    <option value="">MAX</option>
-                    <option value="">Laplaciano</option>
-                    <option value="">High Boost</option>
-                    <option value="">Prewitt</option>
-                    <option value="">Sobel</option>
+                    <option value="average">Média</option>
+                    <option value="median">Mediana</option>
+                    <option value="mode">Moda</option>
+                    <option value="min">MIN</option>
+                    <option value="max">MAX</option>
+                    <option value="laplacian">Laplaciano</option>
+                    <option value="highBoost">High Boost</option>
+                    <option value="prewitt">Prewitt</option>
+                    <option value="sobel">Sobel</option>
                 </select>
 
                 <input class="border rounded mt-2" type="file" name="input_image" id="input_image" />
 
                 <div id="output_div" class="p-2">
-                    <img src="" alt="" id="selected_image" />
+                    <img src="" alt="" id="selected_image"/>
                 </div>
 
                 <p id="img_coordinate"></p>
@@ -118,6 +119,15 @@
     <script src="src/filters/espelhamento_horizontal.js"></script>
     <script src="src/filters/espelhamento_vertical.js"></script>
     <script src="src/filters/compression.js"></script>
+    <script src="src/filters/average.js"></script>
+    <script src="src/filters/median.js"></script>
+    <script src="src/filters/mode.js"></script>
+    <script src="src/filters/highBoost.js"></script>
+    <script src="src/filters/sobel.js"></script>
+    <script src="src/filters/laplacian.js"></script>
+    <script src="src/filters/prewitt.js"></script>
+    <script src="src/filters/min.js"></script>
+    <script src="src/filters/max.js"></script>
 </body>
 
 </html>

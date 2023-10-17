@@ -33,7 +33,7 @@ $("#input_image").on("change", () => {
 
 // Função para aplicar os filtros na imagem e exibir para o usuário
 function applyFilter() {
-  if ($("#filters").val() == "") return;
+  if ($("#filters").val() === "") return;
 
   $("#gamma").hide();
   $("#scale").hide();
@@ -44,8 +44,8 @@ function applyFilter() {
   if (!file) {
     $("#filters").val("");
     $("#preview_message").html(`
-                <h1>É necessário escolher uma imagem antes da aplica um filtro!</h1>
-            `);
+        <h1>É necessário escolher uma imagem antes da aplicar um filtro!</h1>
+    `);
 
     return;
   }
@@ -55,9 +55,12 @@ function applyFilter() {
   var canvas = document.createElement("canvas");
   var ctx = canvas.getContext("2d");
 
-  canvas.width = image.width;
-  canvas.height = image.height;
-  ctx.drawImage(image, 0, 0);
+  const originalWidth = image.width;
+  const originalHeight = image.height;
+
+  canvas.width = originalWidth;
+  canvas.height = originalHeight;
+  ctx.drawImage(image, 0, 0, originalWidth, originalHeight);
 
   scaleFactor = 1;
 
@@ -143,18 +146,54 @@ function applyFilter() {
       data = compression(imageData.data, a, b);
       break;
 
+    case "average":
+      data = averageFilter(imageData, 3);
+      break;
+
+    case "median":
+      data = medianFilter(imageData, 3);
+      break;
+
+    case "mode":
+      data = modeFilter(imageData, 3);
+      break;
+
+    case "high_boost":
+      data = highBoostFilter(imageData, 3, 2.0);
+      break;
+
+    case "sobel":
+      data = sobelFilter(imageData);
+      break;
+
+    case "laplacian":
+      data = laplacianFilter(imageData);
+      break;
+
+    case "prewitt":
+      data = prewittFilter(imageData);
+      break;
+
+    case "min":
+      data = minFilter(imageData);
+      break;
+
+    case "max":
+      data = maxFilter(imageData);
+      break;
+
     default:
       break;
   }
-  
+
   canvas.width = image.width * scaleFactor;
   canvas.height = image.height * scaleFactor;
 
-  const imgData = new ImageData(data, image.width * scaleFactor, image.height * scaleFactor);
+  const imgData = new ImageData(data, originalWidth * scaleFactor, originalHeight * scaleFactor);
   ctx.putImageData(imgData, 0, 0);
 
-  preview.width = image.width * scaleFactor;
-  preview.height = image.height * scaleFactor;
+  preview.width = originalWidth * scaleFactor;
+  preview.height = originalHeight * scaleFactor;
   preview.src = canvas.toDataURL("image/bmp");
   $("#output_tools").show();
 }
