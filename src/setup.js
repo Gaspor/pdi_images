@@ -130,9 +130,17 @@ function applyFilter() {
       break;
 
     case "expansion":
-      const a = 1;
-      const b = 1;
+      $("#AandB").show();
+      a = $("input[name='a_value']").val();
+      b = $("input[name='b_value']").val();;
       data = expansion(imageData.data, a, b);
+      break;
+
+    case "compression":
+      $("#AandB").show();
+      a = $("input[name='a_value']").val();
+      b = $("input[name='b_value']").val();;
+      data = compression(imageData.data, a, b);
       break;
 
     default:
@@ -156,5 +164,9 @@ $("#filters").on("change", () => {
 });
 
 $("input[name='scale_factor']").on('change', () => {
+  applyFilter();
+});
+
+$("input[name='a_value'], input[name='b_value']").on('change', () => {
   applyFilter();
 });

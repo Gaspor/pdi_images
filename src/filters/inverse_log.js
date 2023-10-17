@@ -1,5 +1,5 @@
 function inverse_log(data) {
-    const factor = 255 / Math.log(256); // Fator de escala
+    const factor = 1; // Fator de escala
   
     for (let i = 0; i < data.length; i += 4) {
         const red = data[i];
